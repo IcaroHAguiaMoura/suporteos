@@ -1,10 +1,10 @@
 package com.curso.services;
 
-import com.curso.domains.GrupoProduto;
-import com.curso.domains.Produto;
+import com.curso.domains.*;
+import com.curso.domains.enums.OrderPriority;
+import com.curso.domains.enums.OrderStatus;
 import com.curso.domains.enums.Status;
-import com.curso.repositories.GrupoProdutoRepository;
-import com.curso.repositories.ProdutoRepository;
+import com.curso.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +19,15 @@ public class DBService {
 
     @Autowired
     private ProdutoRepository produtoRepo;
+
+    @Autowired
+    private TechnicianRepository technicianRepository;
+
+    @Autowired
+    private UsersRepository usersRepository;
+
+    @Autowired
+    private ServiceOrderRepository serviceOrderRepository;
 
     public void  initDB(){
 
@@ -44,7 +53,26 @@ public class DBService {
         produtoRepo.save(produto03);
         produtoRepo.save(produto04);
 
+        Technician tec1 = new
+                Technician(null,"jefferson","Passerini",
+                "89308024000","jefferson.passerini@gmail.com","123");
 
+        User user01 = new
+                User(null,"Joao","Alberto",
+                "02569095099","joao.alberto@gmail.com","123");
+
+        User user02 = new
+                User(null,"Icaro","Hisloan",
+                "40028922093","icaro.hisloan@gmail.com","1234");
+
+        ServiceOrder serv01 = new
+                ServiceOrder(null,"test","Os test",
+                OrderPriority.HIGH, OrderStatus.OPEN,tec1,user02);
+
+        technicianRepository.save(tec1);
+        usersRepository.save(user01);
+        usersRepository.save(user02);
+        serviceOrderRepository.save(serv01);
     }
 
 }
