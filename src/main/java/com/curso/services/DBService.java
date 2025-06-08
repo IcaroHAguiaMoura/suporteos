@@ -1,11 +1,10 @@
 package com.curso.services;
 
 import com.curso.domains.*;
-import com.curso.domains.enums.OrderPriority;
-import com.curso.domains.enums.OrderStatus;
-import com.curso.domains.enums.Status;
+import com.curso.domains.enums.*;
 import com.curso.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -13,6 +12,8 @@ import java.time.LocalDate;
 
 @Service
 public class DBService {
+
+
 
     @Autowired
     private GrupoProdutoRepository grupoProdutoRepo;
@@ -29,7 +30,13 @@ public class DBService {
     @Autowired
     private ServiceOrderRepository serviceOrderRepository;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
+
     public void  initDB(){
+
+
 
         GrupoProduto grupo01 = new GrupoProduto(null,"Limpeza", Status.ATIVO);
         GrupoProduto grupo02 = new GrupoProduto(null,"Alimenticio", Status.ATIVO);
@@ -55,15 +62,15 @@ public class DBService {
 
         Technician tec1 = new
                 Technician(null,"jefferson","Passerini",
-                "89308024000","jefferson.passerini@gmail.com","123");
+                "89308024000","jefferson.passerini@gmail.com",encoder.encode("123"));
 
         User user01 = new
                 User(null,"Joao","Alberto",
-                "02569095099","joao.alberto@gmail.com","123");
+                "02569095099","joao.alberto@gmail.com",encoder.encode("123"));
 
         User user02 = new
                 User(null,"Icaro","Hisloan",
-                "40028922093","icaro.hisloan@gmail.com","1234");
+                "40028922093","icaro.hisloan@gmail.com",encoder.encode("123"));
 
         ServiceOrder serv01 = new
                 ServiceOrder(null,"test","Os test",
